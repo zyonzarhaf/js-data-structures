@@ -3,8 +3,7 @@
 QUEUE DATA STRUCTURE
 ===========================
 */
-//Using objects && es6+ class syntax
-class objQueue {
+export default class Queue {
   constructor() {
     this.firstIndex = 0;
     this.index = 0;
@@ -19,8 +18,7 @@ class objQueue {
     return this.index;
   }
 
-  //FIFO STUFF
-  peekFront() {
+  peek() {
     if (!this.isEmpty()) {
       return this.items[this.firstIndex];
     } else {
@@ -28,12 +26,12 @@ class objQueue {
     }
   }
 
-  addBack(element) {
+  enqueue(element) {
     this.items[this.index] = element;
     this.index++;
   }
 
-  removeFirst() {
+  dequeue() {
     if (!this.isEmpty()) {
       const removed = this.items[this.firstIndex];
       if (this.size() > 1) {
@@ -51,7 +49,6 @@ class objQueue {
     }
   }
 
-  //utils
   toString(separator = "") {
     if (!this.isEmpty()) {
       let queueString = `${this.items[this.firstIndex]}`;
@@ -59,23 +56,20 @@ class objQueue {
         queueString += `${separator}${this.items[i]}`;
       }
       return queueString;
-    } else {
-      return "";
     }
+    return "";
   }
 
   reverse() {
     let lastItem = this.index - 1;
-    console.log(lastItem);
-    for (let prop in this.items) {
-      if (prop < lastItem) {
-        [this.items[prop], this.items[lastItem]] = [
-          this.items[lastItem],
-          this.items[prop],
-        ];
-        lastItem--;
-      }
+    for (let i = 0; i < this.index && i < lastItem; i++) {
+      [this.items[i], this.items[lastItem]] = [
+        this.items[lastItem],
+        this.items[i],
+      ];
+      lastItem--;
     }
+    return this.items;
   }
 
   clear() {
@@ -84,15 +78,3 @@ class objQueue {
     this.items = {};
   }
 }
-
-const myQueue = new objQueue();
-
-myQueue.addBack("ana");
-myQueue.addBack("bruno");
-myQueue.addBack("carlos");
-myQueue.addBack("dora");
-myQueue.addBack("emanuel");
-console.log(myQueue.items);
-
-myQueue.reverse();
-console.log(myQueue.items);

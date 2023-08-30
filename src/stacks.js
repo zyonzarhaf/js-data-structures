@@ -4,7 +4,7 @@ STACK DATA STRUCTURE
 ===========================
 */
 // Using objects
-class Stack {
+export class Stack {
   constructor() {
     this.index = 0;
     this.items = {};
@@ -55,11 +55,10 @@ class Stack {
     let firstIndex = 0;
     let lastIndex = this.index - 1;
     for (let i = 0; i < lastIndex; i++) {
-      [this.items[firstIndex], 
-      this.items[lastIndex]]
-      = 
-      [this.items[lastIndex],
-      this.items[firstIndex]];
+      [this.items[firstIndex], this.items[lastIndex]] = [
+        this.items[lastIndex],
+        this.items[firstIndex],
+      ];
       firstIndex++;
       lastIndex--;
     }
@@ -108,13 +107,13 @@ const baseConverter = function (value, base) {
     stack1.push(rem);
   }
 
-  while(!stack1.isEmpty()) {
+  while (!stack1.isEmpty()) {
     stack2.push(stack1.pop());
   }
-  
+
   let baseString = `${digits[stack2.items[0]]}`;
   for (let i = 1; i < stack2.index; i++) {
     baseString += `,${digits[stack2.items[i]]}`;
   }
   return baseString;
-};  
+};
